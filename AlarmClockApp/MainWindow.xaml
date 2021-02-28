@@ -8,7 +8,7 @@
              d:DesignHeight="500" d:DesignWidth="550">
 
 
-    <Grid Background="BlueViolet">
+    <Grid Background="DarkViolet">
 
         <Grid.Resources>
             <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
@@ -56,7 +56,7 @@
                         <Button Name="btnHoursDown" Margin="5" Height="50" Width="80" Content="-1" Click="btnHoursDown_Click"></Button>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBox Text=":" FontSize="18" Height="30" BorderThickness="0" Focusable="False"></TextBox>
+                        <TextBox Text=":" FontSize="20" Height="25" Margin="0 -40 0 0" BorderThickness="0" Focusable="False" TextChanged="TextBox_TextChanged"></TextBox>
 
                     </StackPanel>
 

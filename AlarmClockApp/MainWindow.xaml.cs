@@ -84,7 +84,7 @@ namespace AlarmClockApp
         }
         private void ReSetTheAllarm_Click(object sender, RoutedEventArgs e)
         {
-            ListAlarms.Clear(); 
+            ListAlarms.Clear();
         }
 
         public void GetTheTime()
@@ -97,7 +97,7 @@ namespace AlarmClockApp
         }
 
         // Sets all toggle buttons to "off"
-  
+
         public void resetControl()
         {
             tbSun.IsChecked = false;
@@ -322,6 +322,11 @@ namespace AlarmClockApp
         }
 
         private void ListAlarms_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
