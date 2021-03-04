@@ -1,8 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using AlarmClockApp.Models;
+using AlarmClockApp.Services;
+using Microsoft.Win32;
 using System;
+using System.ComponentModel;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -10,9 +14,21 @@ namespace AlarmClockApp
 {
     public partial class MainWindow : UserControl
     {
+        private static readonly string path = $"{Environment.CurrentDirectory}\\alarmsList.json";
         public MainWindow()
         {
             InitializeComponent();
+            Binding bindingHours = new Binding();
+
+            bindingHours.ElementName = "MainWindow";
+            bindingHours.Path = new PropertyPath("hours");
+            Hours.SetBinding(TextBlock.TextProperty, bindingHours);
+
+            Binding bindingMinutes = new Binding();
+            bindingMinutes.ElementName = "MainWindow";
+            bindingMinutes.Path = new PropertyPath("minutes");
+            Minutes.SetBinding(TextBlock.TextProperty, bindingHours);
+
             Timer.Tick += new EventHandler(Timer_Click);
 
             Timer.Interval = new TimeSpan(0, 0, 1);
@@ -21,10 +37,11 @@ namespace AlarmClockApp
         }
 
         System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
-        public int hours = -1;
-        public int minutes = -1;
+        public int hours = 4;
+        public int minutes = 20;
         private string alarmSongUrl = "";
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        FileIOService fileIOService = new FileIOService(path);
         private void btnHoursUp_Click(object sender, RoutedEventArgs e)
         {
             var buff = int.Parse(this.Hours.Text);
@@ -33,10 +50,10 @@ namespace AlarmClockApp
             if (buff > 23)
             {
                 buff = 0;
-                this.Hours.Text = buff.ToString();
             }
 
             this.Hours.Text = buff.ToString();
+            this.hours = buff;
         }
 
         private void btnHoursDown_Click(object sender, RoutedEventArgs e)
@@ -46,10 +63,10 @@ namespace AlarmClockApp
             if (buff < 0)
             {
                 buff = 23;
-                this.Hours.Text = buff.ToString();
             }
 
             this.Hours.Text = buff.ToString();
+            this.hours = buff;
         }
 
         private void btnMinUp_Click(object sender, RoutedEventArgs e)
@@ -59,10 +76,10 @@ namespace AlarmClockApp
             if (buff > 59)
             {
                 buff = 0;
-                this.Minutes.Text = buff.ToString();
             }
 
             this.Minutes.Text = buff.ToString();
+            this.minutes = buff;
         }
 
         private void btnMinDown_Click(object sender, RoutedEventArgs e)
@@ -72,28 +89,24 @@ namespace AlarmClockApp
             if (buff < 0)
             {
                 buff = 59;
-                this.Minutes.Text = buff.ToString();
             }
 
             this.Minutes.Text = buff.ToString();
+            this.minutes = buff;
         }
 
         private void SetTheAllarm_Click(object sender, RoutedEventArgs e)
         {
-            GetTheTime();
+            var alarmList = fileIOService.LoadData();
+            alarmList.Add(new Alarm { Days = SelectedDays, Hours = hours, Minutes = minutes });
+            fileIOService.SaveData(alarmList);
+            MessageBox.Show("New alarm clock added!");
         }
-        private void ReSetTheAllarm_Click(object sender, RoutedEventArgs e)
+        private void AlarmList_Click(object sender, RoutedEventArgs e)
         {
-            ListAlarms.Clear();
-        }
 
-        public void GetTheTime()
-        {
-            hours = int.Parse(this.Hours.Text);
-            minutes = int.Parse(this.Minutes.Text);
-            this.ListAlarms.Text = "";
-            this.ListAlarms.Text += "Selected days: \n" + SelectedDays;
-            this.ListAlarms.Text += "\n ON: " + hours + ":" + minutes;
+            var alarmList = new AlarmList();
+            alarmList.Show();
         }
 
         // Sets all toggle buttons to "off"
@@ -223,16 +236,20 @@ namespace AlarmClockApp
             DateTime d;
 
             d = DateTime.Now;
+            var alarmList = fileIOService.LoadData();
             label1.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
             this.MyAlarm.Text = "Day: " + d.Day + " " + d.DayOfWeek + " Month: " + d.Month;
 
-            if (d.Hour == hours && d.Second < 1)
+            foreach (var al in alarmList)
             {
-                if (d.Minute == minutes)
+                if (d.Hour == al.Hours && d.Second < 1)
                 {
-                    AlarmOnSound();
-                }
+                    if (d.Minute == al.Minutes)
+                    {
+                        AlarmOnSound();
+                    }
 
+                }
             }
 
         }

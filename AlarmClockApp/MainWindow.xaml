@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="550">
+             d:DesignHeight="550" d:DesignWidth="550">
 
 
     <Grid Background="DarkViolet">
@@ -44,36 +44,34 @@
                 </Setter>
             </Style>
         </Grid.Resources>
-        <ScrollViewer>
+        <ScrollViewer Margin="0,0,-2,0">
             <StackPanel MinWidth="200">
                 <TextBlock Text="SET THE ALARM" />
                 <!--panels for setting alarm and button for sending-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
-
-                    <StackPanel>
-                        <Button Name="btnHoursUp" Margin="5" Height="50" Width="80" Content="+1" Click="btnHoursUp_Click" ></Button>
-                        <TextBox Name="Hours" Focusable="False" Text="4" TextAlignment="Center"></TextBox>
-                        <Button Name="btnHoursDown" Margin="5" Height="50" Width="80" Content="-1" Click="btnHoursDown_Click"></Button>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0" Height="174">
+                    <StackPanel Height="175">
+                        <Button x:Name="btnHoursUp" Margin="5" Height="55" Width="100" Content="+1" Click="btnHoursUp_Click" />
+                        <TextBox x:Name="Hours" Focusable="False" Text="4" TextAlignment="Center"/>
+                        <Button x:Name="btnHoursDown" Margin="5" Height="55" Width="100" Content="-1" Click="btnHoursDown_Click"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBox Text=":" FontSize="20" Height="25" Margin="0 -40 0 0" BorderThickness="0" Focusable="False" TextChanged="TextBox_TextChanged"></TextBox>
+                        <TextBox Text=":" FontSize="20" Height="25" Margin="0 -30 0 0" BorderThickness="0" Focusable="False" TextChanged="TextBox_TextChanged"/>
 
                     </StackPanel>
 
                     <StackPanel>
-                        <Button Name="btnMinUp" Margin="5" Height="50" Width="80" Content="+1" MouseDown="btnMinUp_Click" Click="btnMinUp_Click"></Button>
-                        <TextBox Name="Minutes" Focusable="False" Text="20" TextAlignment="Center"></TextBox>
-                        <Button Name="btnMinDown" Margin="5" Height="50" Width="80" Content="-1" Click="btnMinDown_Click"></Button>
+                        <Button x:Name="btnMinUp" Margin="5" Height="55" Width="100" Content="+1" MouseDown="btnMinUp_Click" Click="btnMinUp_Click"/>
+                        <TextBox x:Name="Minutes" Focusable="False" Text="20" TextAlignment="Center"/>
+                        <Button x:Name="btnMinDown" Margin="5" Height="55" Width="100" Content="-1" Click="btnMinDown_Click"/>
                     </StackPanel>
-                    <StackPanel Height="174">
-                        <Button x:Name="SetTheAllarm" Content="SET" Width="100" Height="60" Click="SetTheAllarm_Click"/>
-                        <Button x:Name="ReSetTheAllarm" Content="RESET" Width="100" Height="60" Margin="20" Click="ReSetTheAllarm_Click"/>
+                    <StackPanel Height="85">
+                        <Button x:Name="SetTheAllarm" Content="SET" Width="100" Height="56" Click="SetTheAllarm_Click"/>
 
 
                     </StackPanel>
-                    <StackPanel>
-                        <TextBox Name="ListAlarms" Width="100" Height="70" Focusable="False" BorderThickness="0" TextWrapping="Wrap" Background="DarkGray" TextChanged="ListAlarms_TextChanged"></TextBox>
-                        <Button Name="Test" Height="60" Margin="0 10 0 0" Content="PLAY" Click="Test_Click"></Button>
+                    <StackPanel Height="165">
+                        <Button x:Name="AlarmList" Height="60"  Width="100" Margin="0 0 0 0" Content="ALARMS LIST" Click="AlarmList_Click"/>
+                        <Button x:Name="Test" Height="60" Width="100" Margin="0 20 0 0" Content="PLAY" Click="Test_Click"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -94,15 +92,13 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <StackPanel MinWidth="400">
                             <TextBlock FontSize="10">Volume</TextBlock>
-                            <Slider Height="25"  Name="VolumeSlider" Value="0.75" Maximum="1" ValueChanged="VolumeSlider_ValueChanged"/>
+                            <Slider Height="25"  x:Name="VolumeSlider" Value="0.75" Maximum="1" ValueChanged="VolumeSlider_ValueChanged"/>
 
                         </StackPanel>
 
                         <StackPanel Width="140" >
                             <TextBlock Name="MediaName">No Media</TextBlock>
-                            <Button Name="Load" Height="30" Click="Load_Click" Content="Select Song">
-
-                            </Button>
+                            <Button x:Name="Load" Height="30" Click="Load_Click" Content="Select Song"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -110,11 +106,11 @@
                 </StackPanel>
 
                 <StackPanel MinWidth="300" VerticalAlignment="Bottom">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Label Margin="0 30 0 0"  Height="87" x:Name="label1" MinWidth="400" FontSize="80" FontFamily="Forte" FontWeight="UltraBlack" Width="300" />
+                    <StackPanel HorizontalAlignment="Center" Height="116">
+                        <Label Margin="0 30 0 0"  Height="103" x:Name="label1" MinWidth="400" FontSize="80" FontFamily="Forte" FontWeight="UltraBlack" Width="300" />
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Left">
-                        <TextBox Focusable="False" Name="MyAlarm" Width="200" Height="50" Background="DarkGray"  VerticalContentAlignment="Center"></TextBox>
+                    <StackPanel HorizontalAlignment="Left" Margin="0 40 0 0">
+                        <TextBox Focusable="False" x:Name="MyAlarm" Width="200" Height="50" Background="DarkGray"  VerticalContentAlignment="Center"/>
                     </StackPanel>
 
 
